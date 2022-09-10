@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useRemoveContactMutation } from 'redux/contactsApi';
+import { useRemoveContactMutation } from 'redux/contacts/contacts-api';
 
 export const Contact = ({ id, name, phone, onDeleteContact }) => {
   const [removeContact, { isLoading: isDeleting }] = useRemoveContactMutation();

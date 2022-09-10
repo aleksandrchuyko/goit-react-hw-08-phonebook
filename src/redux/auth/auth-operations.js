@@ -1,0 +1,77 @@
+import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { BASE_URL } from 'constants';
+
+axios.defaults.baseURL = BASE_URL;
+
+const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = '';
+  },
+};
+
+const register = createAsyncThunk(
+  'auth/register',
+  async (credentials, thunkAPI) => {
+    try {
+      const { data } = await axios.post('users/signup', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
+  try {
+    const { data } = await axios.post('users/login', credentials);
+    token.set(data.token);
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue();
+  }
+});
+
+const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  try {
+    await axios.post('users/logout');
+    token.unset();
+  } catch (error) {
+    return thunkAPI.rejectWithValue();
+  }
+});
+
+const fetchCurrentUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const savedToken = state.auth.token;
+
+    if (savedToken === null) {
+      console.log('token is empty');
+      return thunkAPI.rejectWithValue();
+    }
+    token.set(savedToken);
+    try {
+      const { data } = await axios.get('users/current');
+      console.log('object', data);
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+const operations = {
+  register,
+  logIn,
+  logOut,
+  fetchCurrentUser,
+};
+
+export default operations;
