@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box } from 'components/Box';
 import { authOperations } from 'redux/auth';
@@ -32,7 +32,6 @@ export const LoginForm = ({ contacts, onSubmit }) => {
   return (
     <Box>
       <form onSubmit={handleSubmit}>
-        
         <div>
           <label htmlFor="email">E-mail</label>
           <input
