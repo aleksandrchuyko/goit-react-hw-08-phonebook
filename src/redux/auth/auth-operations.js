@@ -52,13 +52,11 @@ const fetchCurrentUser = createAsyncThunk(
     const savedToken = state.auth.token;
 
     if (savedToken === null) {
-      console.log('token is empty');
       return thunkAPI.rejectWithValue();
     }
     token.set(savedToken);
     try {
       const { data } = await axios.get('users/current');
-      console.log('object', data);
 
       return data;
     } catch (error) {

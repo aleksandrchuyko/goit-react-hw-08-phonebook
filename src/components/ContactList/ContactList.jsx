@@ -11,7 +11,7 @@ export const ContactList = ({ contacts, onDeleteContact }) => {
             <Contact
               id={contact.id}
               name={contact.name}
-              phone={contact.phone}
+              number={contact.number}
             ></Contact>
           </li>
         ))}
@@ -26,7 +26,7 @@ ContactList.propTypes = {
       createdAt: PropTypes.string,
       id: PropTypes.string,
       name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

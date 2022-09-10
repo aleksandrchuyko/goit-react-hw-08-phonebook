@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import axios from 'axios';
+import { BASE_URL } from 'constants';
 
 const axiosBaseQuery =
   ({ baseUrl } = { baseUrl: '' }) =>
@@ -21,29 +22,29 @@ const axiosBaseQuery =
 export const contactsApi = createApi({
   reducerPath: 'contacts',
   baseQuery: axiosBaseQuery({
-    baseUrl: 'https://630de8b7109c16b9abf041c4.mockapi.io/api/v1',
+    baseUrl: BASE_URL,
   }),
   tagTypes: ['Contacts'],
   endpoints(build) {
     return {
       getAllContacts: build.query({
-        query: () => ({ url: '/contacts', method: 'get' }),
+        query: () => ({ url: 'contacts', method: 'get' }),
         providesTags: ['Contacts'],
       }),
       addContact: build.mutation({
-        query: ({ name, phone }) => ({
-          url: '/contacts',
+        query: ({ name, number }) => ({
+          url: 'contacts',
           method: 'post',
           data: {
             name: name,
-            phone: phone,
+            number: number,
           },
         }),
         invalidatesTags: ['Contacts'],
       }),
       removeContact: build.mutation({
         query: contactId => ({
-          url: `/contacts/${contactId}`,
+          url: `contacts/${contactId}`,
           method: 'delete',
         }),
         invalidatesTags: ['Contacts'],

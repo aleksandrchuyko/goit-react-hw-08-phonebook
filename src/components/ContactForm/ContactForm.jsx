@@ -5,7 +5,7 @@ import { Box } from 'components/Box';
 
 export const ContactForm = ({ contacts, onSubmit }) => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleChange = e => {
     const currentInputName = e.currentTarget.name;
@@ -13,8 +13,8 @@ export const ContactForm = ({ contacts, onSubmit }) => {
       case 'name':
         setName(e.currentTarget.value);
         break;
-      case 'phone':
-        setPhone(e.currentTarget.value);
+      case 'number':
+        setNumber(e.currentTarget.value);
         break;
       default:
         return;
@@ -29,10 +29,10 @@ export const ContactForm = ({ contacts, onSubmit }) => {
       return false;
     }
 
-    onSubmit({ name, phone });
+    onSubmit({ name, number });
 
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -52,11 +52,11 @@ export const ContactForm = ({ contacts, onSubmit }) => {
         </div>
 
         <div>
-          <label htmlFor="phone">Number</label>
+          <label htmlFor="number">Number</label>
           <input
             type="tel"
-            name="phone"
-            value={phone}
+            name="number"
+            value={number}
             onChange={handleChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaceSs, dashes, parentheses and can start with +"
@@ -76,7 +76,7 @@ ContactForm.propTypes = {
       createdAt: PropTypes.string,
       id: PropTypes.string,
       name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

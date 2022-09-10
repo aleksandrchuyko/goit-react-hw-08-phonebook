@@ -6,6 +6,8 @@ import Layout from 'components/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations, authSelectors } from 'redux/auth';
 import { useEffect } from 'react';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 const RegisterView = lazy(() => import('pages/RegisterView'));
 const LoginView = lazy(() => import('pages/LoginView'));
 const ContactsView = lazy(() => import('pages/ContactsView'));
@@ -46,10 +48,45 @@ export const App = () => {
       {!isRefreshingUser && (
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<RegisterView />} />
-            <Route path="register" element={<RegisterView />} />
-            <Route path="login" element={<LoginView />} />
-            <Route path="contacts" element={<ContactsView />} />
+            <Route
+              index
+              element={
+                <PublicRoute
+                  restricted
+                  redirectTo="/contacts"
+                  component={<RegisterView />}
+                />
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PublicRoute
+                  restricted
+                  redirectTo="/contacts"
+                  component={<RegisterView />}
+                />
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <PublicRoute
+                  restricted
+                  redirectTo="/contacts"
+                  component={<LoginView />}
+                />
+              }
+            />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={<ContactsView />}
+                />
+              }
+            />
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         </Routes>

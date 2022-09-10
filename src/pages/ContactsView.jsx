@@ -16,7 +16,9 @@ const ContactsView = () => {
   const dispatch = useDispatch();
 
   const filter = useSelector(getFilter);
-  const { data: contacts, isLoading } = useGetAllContactsQuery('');
+  const { data: contacts, isLoading, isSuccess } = useGetAllContactsQuery('', {
+    refetchOnMountOrArgChange: true
+  });
   const [addContact] = useAddContactMutation();
 
   //get contacts list by filter
@@ -29,8 +31,8 @@ const ContactsView = () => {
   };
 
   //redux actions
-  const handleAddContact = ({ name, phone }) => {
-    addContact({ name, phone });
+  const handleAddContact = ({ name, number }) => {
+    addContact({ name, number });
   };
 
   const updateFilter = e => {
@@ -43,7 +45,7 @@ const ContactsView = () => {
   return (
     <Box>
       <h2>Phonebook</h2>
-      {!isLoading && (
+      {!isLoading && isSuccess && (
         <>
           <ContactForm
             contacts={contacts}
