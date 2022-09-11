@@ -1,22 +1,22 @@
-import { Box } from 'components/Box';
 import { Contact } from 'components/ContactList/Contact/Contact';
 import PropTypes from 'prop-types';
+import { Container, ListGroup } from 'react-bootstrap';
 
 export const ContactList = ({ contacts, onDeleteContact }) => {
   return (
-    <Box>
-      <ul>
+    <Container>
+      <ListGroup variant="flush">
         {contacts.map(contact => (
-          <li key={contact.id}>
+          <ListGroup.Item key={contact.id}>
             <Contact
               id={contact.id}
               name={contact.name}
               number={contact.number}
             ></Contact>
-          </li>
+          </ListGroup.Item>
         ))}
-      </ul>
-    </Box>
+      </ListGroup>
+    </Container>
   );
 };
 

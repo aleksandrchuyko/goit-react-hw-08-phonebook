@@ -1,5 +1,3 @@
-import { Box } from 'components/Box';
-
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
@@ -11,13 +9,18 @@ import {
   useAddContactMutation,
   useGetAllContactsQuery,
 } from 'redux/contacts/contacts-api';
+import { Card, CardGroup, Container } from 'react-bootstrap';
 
 const ContactsView = () => {
   const dispatch = useDispatch();
 
   const filter = useSelector(getFilter);
-  const { data: contacts, isLoading, isSuccess } = useGetAllContactsQuery('', {
-    refetchOnMountOrArgChange: true
+  const {
+    data: contacts,
+    isLoading,
+    isSuccess,
+  } = useGetAllContactsQuery('', {
+    refetchOnMountOrArgChange: true,
   });
   const [addContact] = useAddContactMutation();
 
@@ -43,20 +46,28 @@ const ContactsView = () => {
   const filteredContacts = getFilteredContacts();
 
   return (
-    <Box>
-      <h2>Phonebook</h2>
+    <Container className="mt-2">
       {!isLoading && isSuccess && (
-        <>
-          <ContactForm
-            contacts={contacts}
-            onSubmit={handleAddContact}
-          ></ContactForm>
-          <h3>Contacts</h3>
-          <Filter name={filter} onChange={updateFilter}></Filter>
-          <ContactList contacts={filteredContacts} />
-        </>
+        <CardGroup>
+          <Card>
+            <Card.Body>
+              <Card.Title>New contact</Card.Title>
+              <ContactForm
+                contacts={contacts}
+                onSubmit={handleAddContact}
+              ></ContactForm>
+            </Card.Body>
+          </Card>
+          <Card>
+            <Card.Body>
+              <Card.Title>Your contacts</Card.Title>
+              <Filter name={filter} onChange={updateFilter}></Filter>
+              <ContactList contacts={filteredContacts} />
+            </Card.Body>
+          </Card>
+        </CardGroup>
       )}
-    </Box>
+    </Container>
   );
 };
 

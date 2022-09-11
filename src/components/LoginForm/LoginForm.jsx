@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Box } from 'components/Box';
+
 import { authOperations } from 'redux/auth';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 
 export const LoginForm = ({ contacts, onSubmit }) => {
   const [email, setEmail] = useState('');
@@ -30,31 +31,39 @@ export const LoginForm = ({ contacts, onSubmit }) => {
   };
 
   return (
-    <Box>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">E-mail</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <Container className="mt-5">
+      <Row>
+        <Col xs={6}>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
 
-        <button type="submit">Log in</button>
-      </form>
-    </Box>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                value={email}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Log In
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };

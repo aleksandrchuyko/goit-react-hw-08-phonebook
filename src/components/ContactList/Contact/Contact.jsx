@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useRemoveContactMutation } from 'redux/contacts/contacts-api';
 
@@ -5,10 +6,12 @@ export const Contact = ({ id, name, number, onDeleteContact }) => {
   const [removeContact, { isLoading: isDeleting }] = useRemoveContactMutation();
   return (
     <div>
-      <p>
-        {name}: {number}
+      <p className="mb-2">
+        <b>{name}:</b> {number}
       </p>
-      <button
+      <Button
+        variant="outline-secondary"
+        size="sm"
         type="button"
         disabled={isDeleting}
         onClick={() => {
@@ -16,7 +19,7 @@ export const Contact = ({ id, name, number, onDeleteContact }) => {
         }}
       >
         Delete
-      </button>
+      </Button>
     </div>
   );
 };

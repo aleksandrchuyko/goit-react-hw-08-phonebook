@@ -1,4 +1,5 @@
 import { Box } from 'components/Box';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations, authSelectors } from 'redux/auth';
 
@@ -10,11 +11,11 @@ const UserMenu = () => {
   const user = useSelector(authSelectors.getUser);
 
   return (
-    <Box>
-      <span>{user.email}</span>
-      <button type="button" onClick={handleLogout}>
+    <Box display="flex" alignItems="center">
+      <span className='text-light m-2' style={{display: 'block',}}>{user.email}</span>
+      <Button type="button" style={{display: 'block',}} onClick={handleLogout}>
         Log Out
-      </button>
+      </Button>
     </Box>
   );
 };

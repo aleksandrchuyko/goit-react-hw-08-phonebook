@@ -1,34 +1,32 @@
-import { Box } from 'components/Box';
 import UserMenu from 'components/UserMenu/UserMenu';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth';
-import { HeaderLink } from './SiteHeader.styled';
+import { Link, NavLink } from 'react-router-dom';
 
 const SiteHeader = () => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   return (
-    <Box as="header">
-      <Box display="flex" justifyContent="space-between">
-        <nav>
-          {!isLoggedIn ? (
+    <Navbar bg="dark" expand="lg" variant="dark">
+      <Container>
+        <Navbar.Brand className="text-primary" as={Link} to="register">
+          Phonebook
+        </Navbar.Brand>
+        <Nav>
+          {!isLoggedIn && (
             <>
-              <HeaderLink to="/" key="register">
-                Register
-              </HeaderLink>
-              <HeaderLink to="login" key="login">
+              <Nav.Link as={NavLink} to="register" key="register">
+                Registration
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="login" key="login">
                 Login
-              </HeaderLink>
+              </Nav.Link>
             </>
-          ) : (
-            <HeaderLink to="contacts" key="movies">
-              Contacts
-            </HeaderLink>
           )}
-        </nav>
+        </Nav>
         {isLoggedIn && <UserMenu />}
-      </Box>
-      <hr />
-    </Box>
+      </Container>
+    </Navbar>
   );
 };
 export default SiteHeader;
