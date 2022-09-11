@@ -6,13 +6,10 @@ import './index.css';
 import '../node_modules/react-bootstrap/dist/react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
-
-
-
 // import { ThemeProvider } from 'styled-components';
 import { App } from 'components/App';
 // import { ThemeProvider } from 'react-bootstrap';
-import { theme } from './constants/theme';
+// import { theme } from './constants/theme';
 import { persistor, store } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -25,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter basename="/goit-react-hw-08-phonebook/">
         {/* <ThemeProvider theme={theme}> */}
-          <App />
+        <App />
         {/* </ThemeProvider> */}
       </BrowserRouter>
     </PersistGate>
