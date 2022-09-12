@@ -38,8 +38,8 @@ export const ContactForm = ({ contacts, onSubmit }) => {
   return (
     <Box>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-2" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+        <Form.Group className="mb-2" controlId="formBasicName">
+          <Form.Label>Contact name</Form.Label>
 
           <Form.Control
             type="text"
@@ -51,8 +51,8 @@ export const ContactForm = ({ contacts, onSubmit }) => {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-2" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+        <Form.Group className="mb-2" controlId="formBasicNumber">
+          <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="tel"
             name="number"
